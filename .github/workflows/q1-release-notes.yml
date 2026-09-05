@@ -15,7 +15,7 @@ on:
        type: choice
        options:
          - patch
-        - minor
+         - minor
          - major
        default: 'patch'
 
