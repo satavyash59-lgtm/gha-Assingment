@@ -7,10 +7,11 @@ on:
         description: "Version number"
         type: string
         required: true
-        default: '1.0.0'
+        default: "1.0.0"
       release_type:
-        description: "type of version"
+        description: "Type of release"
         type: choice
+        required: true
         default: patch
         options:
           - patch
@@ -38,18 +39,18 @@ jobs:
     needs: prepare
     runs-on: ubuntu-latest
     steps:
-      - name: Output Release Summary
+      - name: Print outputs
         run: |
-          echo "Build Tag: ${{ needs.prepare.outputs.build_tag }}"
-          echo "Build Date: ${{ needs.prepare.outputs.build_date }}"
+          echo "Build tag: ${{ needs.prepare.outputs.build_tag }}"
+          echo "Build date: ${{ needs.prepare.outputs.build_date }}"
 
       - name: Write summary
         run: |
           {
             echo "| Field | Value |"
-            echo "| --- | --- |"
+            echo "|---|---|"
             echo "| Version | ${{ inputs.version }} |"
-            echo "| Release Type | ${{ inputs.release_type }} |"
-            echo "| Build Tag | ${{ needs.prepare.outputs.build_tag }} |"
-            echo "| Build Date | ${{ needs.prepare.outputs.build_date }} |"
+            echo "| Release type | ${{ inputs.release_type }} |"
+            echo "| Build tag | ${{ needs.prepare.outputs.build_tag }} |"
+            echo "| Build date | ${{ needs.prepare.outputs.build_date }} |"
           } >> "$GITHUB_STEP_SUMMARY"
