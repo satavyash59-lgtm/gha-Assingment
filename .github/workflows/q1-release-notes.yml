@@ -31,8 +31,8 @@ jobs:
     runs-on: ubuntu-latest
     needs: prepare
     steps:
-      - name: Print and summarize
+      - name: Output Release Summary
         run: |
           echo "Build Tag: ${{ needs.prepare.outputs.build_tag }}"
           echo "Build Date: ${{ needs.prepare.outputs.build_date }}"
-          
+         
