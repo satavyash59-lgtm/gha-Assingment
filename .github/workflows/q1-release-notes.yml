@@ -9,7 +9,7 @@ on:
        type: string
        default: '1.0.0'
        
-    release_type:
+     release_type:
        description: "Release type"
        required: ture
        type: choice
