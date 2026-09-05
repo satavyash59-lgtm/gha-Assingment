@@ -9,7 +9,10 @@ on:
         default: '1.0.0'
       release_type:
         type: choice
-        options: [patch, minor, major]
+        options:
+          - patch
+          - minor
+          - major
         default: patch
 
 jobs:
@@ -25,9 +28,11 @@ jobs:
           echo "build_date=$(date +'%Y-%m-%d')" >> "$GITHUB_OUTPUT"
 
   announce:
-        runs-on: ubuntu-latest
-        needs: prepare
-        steps:
-          - run: |
-              echo "Build Tag: ${{ needs.prepare.outputs.build_tag }}"
-              echo "Build Date: ${{ needs.prepare.outputs.build_date }}"
+    runs-on: ubuntu-latest
+    needs: prepare
+    steps:
+      - name: Print and summarize
+        run: |
+          echo "Build Tag: ${{ needs.prepare.outputs.build_tag }}"
+          echo "Build Date: ${{ needs.prepare.outputs.build_date }}"
+          
