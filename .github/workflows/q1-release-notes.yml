@@ -23,7 +23,7 @@ on:
 jobs:
  prepare:
    runs-on: ubuntu-latest
-   output:
+   outputs:
     build_tag: ${{steps.compute.outputs.build_tag}}
     build_date: ${{steps.compute.outputs.build_tag}}
    steps:
