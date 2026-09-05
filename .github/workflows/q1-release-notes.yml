@@ -34,7 +34,7 @@ jobs:
 
        id: date
        name: compute build date
-       run: echo "build date=$(date +%F)">>"$GITHUB_OUTPUT
+       run: echo "build date=$(date +%F)">>"$GITHUB_OUTPUT"
   announce:
     runs-on: ubuntu-latest
     steps:
