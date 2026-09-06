@@ -1,0 +1,28 @@
+name: "Greet Action"
+description: "Generates a greeting message"
+inputs:
+  name:
+    description: "Name of the user"
+    required: true
+  env_name:
+    description: "Target environment"
+    required: false
+    default: "dev"
+outputs:
+  greeting:
+    description: "Greeting output string"
+    value: ${{ steps.set-output.outputs.greeting }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: Step 1 - Log inputs
+      shell: bash
+      run: |
+        echo "Processing greeting for ${{ inputs.name }} in environment ${{ inputs.env_name }}"
+
+    - name: Step 2 - Set greeting output
+      id: set-output
+      shell: bash
+      run: |
+        echo "greeting=Hello ${{ inputs.name }}, welcome to ${{ inputs.env_name }}." >> "$GITHUB_OUTPUT"
