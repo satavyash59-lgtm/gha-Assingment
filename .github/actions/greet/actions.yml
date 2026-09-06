@@ -1,36 +1,30 @@
-# This is a basic workflow to help you get started with Actions
+name: 'Greet Action'
+description: 'Generates a greeting message'
 
-name: CI
+inputs:
+  name:
+    description: 'Name to greet'
+    required: true
+  env_name:
+    description: 'Environment name'
+    required: false
+    default: 'dev'
 
-# Controls when the workflow will run
-on:
-  # Triggers the workflow on push or pull request events but only for the "main" branch
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+outputs:
+  greeting:
+    description: 'Greeting output message'
+    value: ${{ steps.step2.outputs.greeting }}
 
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
+runs:
+  using: 'composite'
+  steps:
+    - name: Run first step
+      shell: bash
+      run: |
+        echo "Starting greeting process for ${{ inputs.name }}..."
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
-jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v4
-
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
-
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+    - name: Run second step and set output
+      id: step2
+      shell: bash
+      run: |
+        echo "greeting=Hello ${{ inputs.name }}, welcome to ${{ inputs.env_name }}." >> "$GITHUB_OUTPUT"
